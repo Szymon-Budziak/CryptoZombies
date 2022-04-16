@@ -1,8 +1,11 @@
 pragma solidity >=0.5.0;
 
 import "./ownable.sol";
+import "./safeMath.sol";
 
 contract ZombieFactory is Ownable {
+    using SafeMath for uint256;
+
     event NewZombie(uint256 zombieId, string name, uint256 dna);
 
     uint256 dnaDigits = 16;
@@ -29,7 +32,7 @@ contract ZombieFactory is Ownable {
         );
         uint256 id = zombies.length - 1;
         zombieToOwner[id] = msg.sender;
-        ownerZombieCount[msg.sender]++;
+        ownerZombieCount[msg.sender] = ownerZombieCount[msg.sender].add(1);
         emit NewZombie(id, _name, _dna);
     }
 
@@ -47,5 +50,4 @@ contract ZombieFactory is Ownable {
         uint256 randDna = _generateRandomDna(_name);
         _createZombie(_name, randDna);
     }
-    
 }
