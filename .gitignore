@@ -1,3 +1,6 @@
-bin/
 .idea
-build
+CryptoZombies/build
+node_modules
+package.json
+package-lock.jsonc
+package-lock.json
